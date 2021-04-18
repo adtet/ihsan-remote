@@ -15,13 +15,13 @@ def sql_connection():
 def input_data(idL,lampu):
     db = sql_connection()
     cursor = db.cursor()
-    cursor.execute("INSERT INTO `tb_config`(`id`, `lampu`) VALUES (%s,%s)",(idL,lampu))
+    cursor.execute("INSERT INTO `tb_config`(`idObj`, `lampu`) VALUES (%s,%s)",(idL,lampu))
     db.commit()
 
 def cek_data_input(idL):
     db = sql_connection()
     cursor = db.cursor()
-    cursor.execute("SELECT `id` FROM `tb_config` WHERE `id`=%s",(idL,))
+    cursor.execute("SELECT `idObj` FROM `tb_config` WHERE `idObj`=%s",(idL,))
     c = cursor.fetchone()
     if c == None:
         return True
@@ -31,13 +31,13 @@ def cek_data_input(idL):
 def update_data(lampu,idL):
     db = sql_connection()
     cursor = db.cursor()
-    cursor.execute("UPDATE `tb_config` SET `lampu`=%s WHERE `id`=%s",(lampu,idL))
+    cursor.execute("UPDATE `tb_config` SET `lampu`=%s WHERE `idObj`=%s",(lampu,idL))
     db.commit()
 
 def get_data():
     db = sql_connection()
     cursor = db.cursor()
-    cursor.execute("SELECT `id`, `lampu` FROM `tb_config`")
+    cursor.execute("SELECT `idObj`, `lampu` FROM `tb_config`")
     rows = [x for x in cursor]
     cols = [x[0] for x in cursor.description]
     datas = []
@@ -58,12 +58,12 @@ def input_remote():
         resp = jsonify(result)
         return resp, 400
     else:
-        if 'id' not in json_data or 'lampu' not in json_data:
+        if 'idObj' not in json_data or 'lampu' not in json_data:
             result = {"message": "error request"}
             resp = jsonify(result)
             return resp, 401
         else:
-            idL = json_data['id']
+            idL = json_data['idObj']
             lampu = json_data['lampu']
             cek = cek_data_input(idL)
             if cek==False:
