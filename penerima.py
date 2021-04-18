@@ -77,6 +77,10 @@ def input_remote():
                 resp = jsonify(result)
                 return resp, 202
 
+@app.route('/remote/get',methods=['GET'])
+def get_remote():
+    data = get_data()
+    return data,200
 
 if __name__ == "__main__":
     # serve(app, host="0.0.0.0", port=8001)
