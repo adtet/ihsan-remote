@@ -39,7 +39,7 @@ def update_data(lampu,idL):
 def get_data():
     db = sql_connection()
     cursor = db.cursor()
-    cursor.execute("SELECT `idObj`, `lampu` FROM `tb_config`")
+    cursor.execute("SELECT `IdObj`, `Horizontal`, `Vertikal`, `Speed` FROM `tb_data` ")
     rows = [x for x in cursor]
     cols = [x[0] for x in cursor.description]
     datas = []
